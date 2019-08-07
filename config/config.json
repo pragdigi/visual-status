@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "column-visual-status-field-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/columnVisualStatus/ColumnVisualStatusFieldCustomizer.js",
+          "manifest": "./src/extensions/columnVisualStatus/ColumnVisualStatusFieldCustomizer.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "ColumnVisualStatusFieldCustomizerStrings": "lib/extensions/columnVisualStatus/loc/{locale}.js"
+  }
+}
