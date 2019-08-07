@@ -4,12 +4,13 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://contoso.sharepoint.com/sites/mySite/SitePages/myPage.aspx",
+      "pageUrl": "https://pragdigi.sharepoint.com/sites/dev/Lists/SalesTracking/AllItems.aspx",
       "fieldCustomizers": {
-        "InternalFieldName": {
+        "Progress": {
           "id": "176b5714-1d35-447b-bbf5-59ad916ce66a",
           "properties": {
-            "sampleText": "Value"
+            "greenStatus": "85",
+            "yellowStatus": "70"
           }
         }
       }
@@ -20,7 +21,8 @@
         "InternalFieldName": {
           "id": "176b5714-1d35-447b-bbf5-59ad916ce66a",
           "properties": {
-            "sampleText": "Value"
+            "greenStatus": "85",
+            "yellowStatus": "70"
           }
         }
       }

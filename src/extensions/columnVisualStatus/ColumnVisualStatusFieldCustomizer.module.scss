@@ -1,6 +1,9 @@
 .ColumnVisualStatus {
   .cell {
-    background-color: "[theme:themePrimary, default:#e5e5e5]";
     display: 'inline-block';
+  }
+  .filledBackground {
+    background-color: #cccccc;
+    width: 100px;
   }
 }

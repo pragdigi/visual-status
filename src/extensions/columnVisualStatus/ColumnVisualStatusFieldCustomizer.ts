@@ -1,12 +1,12 @@
-import { Log } from '@microsoft/sp-core-library';
-import { override } from '@microsoft/decorators';
+import { Log } from "@microsoft/sp-core-library";
+import { override } from "@microsoft/decorators";
 import {
   BaseFieldCustomizer,
   IFieldCustomizerCellEventParameters
-} from '@microsoft/sp-listview-extensibility';
+} from "@microsoft/sp-listview-extensibility";
 
-import * as strings from 'ColumnVisualStatusFieldCustomizerStrings';
-import styles from './ColumnVisualStatusFieldCustomizer.module.scss';
+import * as strings from "ColumnVisualStatusFieldCustomizerStrings";
+import styles from "./ColumnVisualStatusFieldCustomizer.module.scss";
 
 /**
  * If your field customizer uses the ClientSideComponentProperties JSON input,
@@ -14,15 +14,15 @@ import styles from './ColumnVisualStatusFieldCustomizer.module.scss';
  * You can define an interface to describe it.
  */
 export interface IColumnVisualStatusFieldCustomizerProperties {
-  // This is an example; replace with your own property
-  sampleText?: string;
+  greenStatus?: string;
+  yellowStatus?: string;
 }
 
-const LOG_SOURCE: string = 'ColumnVisualStatusFieldCustomizer';
+const LOG_SOURCE: string = "ColumnVisualStatusFieldCustomizer";
 
-export default class ColumnVisualStatusFieldCustomizer
-  extends BaseFieldCustomizer<IColumnVisualStatusFieldCustomizerProperties> {
-
+export default class ColumnVisualStatusFieldCustomizer extends BaseFieldCustomizer<
+  IColumnVisualStatusFieldCustomizerProperties
+> {
   @override
   public onInit(): Promise<void> {
     // Add your custom initialization to this method.  The framework will wait
@@ -35,12 +35,40 @@ export default class ColumnVisualStatusFieldCustomizer
 
   @override
   public onRenderCell(event: IFieldCustomizerCellEventParameters): void {
-    // Use this method to perform your custom cell rendering.
-    const text: string = `${this.properties.sampleText}: ${event.fieldValue}`;
-
-    event.domElement.innerText = text;
-
     event.domElement.classList.add(styles.cell);
+
+    // colour and text to use
+    const fieldValue = parseInt(event.fieldValue);
+    let filledColour: string = '';
+    
+    if (isNaN(fieldValue) || fieldValue === 0) {
+      event.domElement.innerHTML = `
+        <div class="${styles.ColumnVisualStatus}">
+          <div class="">
+            <div style="width: 100px; color:#000000;">
+              &nbsp; no progress
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      if (fieldValue >= parseInt(this.properties.greenStatus)) {
+        filledColour = '#00ff00';
+      } else if (fieldValue >= parseInt(this.properties.yellowStatus)) {
+        filledColour = '#ffff00';
+      } else {
+        filledColour = '#ff0000';
+      }
+    
+      event.domElement.innerHTML = `
+        <div class="${styles.ColumnVisualStatus}">
+          <div class="${styles.filledBackground}">
+            <div style="width: ${fieldValue}px; background:${filledColour}; color:#000000;">
+              &nbsp; ${fieldValue}% completed
+            </div>
+          </div>
+        </div>`;
+    }
   }
 
   @override
